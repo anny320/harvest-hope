@@ -1,0 +1,30 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (if using any build tools later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+*.log
+
+# Local environment
+.env
+.env.local
+
+# Build output
+dist/
+build/
+
+# Cache
+.cache/
+*.tmp
