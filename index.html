@@ -1,165 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌾 Harvest Hope - End Global Hunger by 2030</title>
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🌾</text></svg>">
-    
-    <!-- Meta tags for SEO -->
-    <meta name="description" content="Harvest Hope: A game-based simulation where you tackle global food insecurity. Deploy interventions, manage resources, and end hunger before 2030.">
-    <meta name="keywords" content="food security, food insecurity, hunger, game, simulation, education, SDG, sustainable development">
-    <meta name="author" content="Harvest Hope Team">
-    
-    <!-- Open Graph for social sharing -->
-    <meta property="og:title" content="🌾 Harvest Hope - End Global Hunger by 2030">
-    <meta property="og:description" content="Play a strategic simulation game about solving global food insecurity">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/harvest-hope/">
-    <meta property="og:image" content="https://yourusername.github.io/harvest-hope/assets/og-image.png">
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <h1>🌾 HARVEST HOPE</h1>
-            
-                <p>End Global Hunger by 2030</p>
-            </div>
-            <div class="navbar-menu">
-                <a href="#game" class="nav-link">Play Game</a>
-                <a href="#leaderboard" class="nav-link">Leaderboard</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="https://github.com/yourusername/harvest-hope" class="nav-link" target="_blank">GitHub</a>
-            </div>
-        </div>
-    </nav>
+const GAME_CONFIG = {
+    startingFunding: 2500000000,
+    startingTrust: 50,
+    startingPolitics: 50,
+    startingYear: 2024,
+    targetYear: 2030,
+    winHungerThreshold: 5,
+    partialWinHungerThreshold: 10,
+    monthDuration: 2000,
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Can You End Global Hunger Before 2030?</h2>
-            <p>A strategic simulation game where your decisions matter. Deploy interventions, manage limited resources, and transform the world's food systems.</p>
-            <a href="#game" class="cta-button">Play Now - Free</a>
-        </div>
-    </section>
+    interventions: {
+        cashTransfers: {
+            name: 'Cash Transfers',
+            cost: 50000000,
+            trustCost: 0,
+            politicsCost: 5,
+            evidenceCost: 0,
+            hungerReduction: 2,
+            peopleFedPerMonth: 500000,
+            requiredEvidence: 0,
+            description: 'Direct cash to vulnerable families'
+        },
+        droughtSeeds: {
+            name: 'Drought-Resistant Seeds',
+            cost: 30000000,
+            trustCost: 0,
+            politicsCost: 0,
+            evidenceCost: 10,
+            hungerReduction: 3,
+            peopleFedPerMonth: 800000,
+            requiredEvidence: 0,
+            description: 'High-yield seeds for arid conditions'
+        },
+        irrigation: {
+            name: 'Irrigation Systems',
+            cost: 120000000,
+            trustCost: 5,
+            politicsCost: 10,
+            evidenceCost: 20,
+            hungerReduction: 5,
+            peopleFedPerMonth: 1200000,
+            requiredEvidence: 30,
+            description: 'Infrastructure for reliable water supply'
+        },
+        aiCropDetection: {
+            name: 'AI Crop Detection',
+            cost: 80000000,
+            trustCost: 0,
+            politicsCost: 0,
+            evidenceCost: 15,
+            hungerReduction: 4,
+            peopleFedPerMonth: 1000000,
+            requiredEvidence: 50,
+            description: 'Tech-based crop disease prevention'
+        },
+        schoolFeeding: {
+            name: 'School Feeding Programs',
+            cost: 40000000,
+            trustCost: -10,
+            politicsCost: -5,
+            evidenceCost: 0,
+            hungerReduction: 1.5,
+            peopleFedPerMonth: 600000,
+            requiredEvidence: 0,
+            description: 'Nutrition + enrollment outcomes'
+        }
+    }
+};
 
-    <!-- Game Section -->
-    <section id="game" class="game-section">
-        <h2>Play the Game</h2>
-        <div class="game-container">
-            <div id="harvest-hope-container"></div>
-            <div class="game-info">
-                <h3>💡 Game Features</h3>
-                <ul>
-                    <li>🌍 8 regions with unique challenges</li>
-                    <li>💵 5 types of interventions</li>
-                    <li>📊 Dynamic resource management</li>
-                    <li>🎲 Random events and crises</li>
-                    <li>🏆 Global leaderboard</li>
-                    <li>⏱️ Race against time until 2030</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Leaderboard Section -->
-    <section id="leaderboard" class="leaderboard-section">
-        <h2>🏆 Global Leaderboard</h2>
-        <div class="leaderboard-container">
-            <table class="leaderboard-table">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Player</th>
-                        <th>People Fed</th>
-                        <th>Time</th>
-                        <th>Hunger Level</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboard-body">
-                    <tr>
-                        <td colspan="6" class="loading">Loading leaderboard...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <h2>About Harvest Hope</h2>
-        <div class="about-grid">
-            <div class="about-card">
-                <h3>🎯 Educational Purpose</h3>
-                <p>Harvest Hope teaches the complexities of addressing global food insecurity. Based on real research and interventions proven to work.</p>
-            </div>
-            <div class="about-card">
-                <h3>📚 Real Solutions</h3>
-                <p>Every intervention in the game is based on evidence-based solutions: cash transfers, climate-smart agriculture, AI technology, and more.</p>
-            </div>
-            <div class="about-card">
-                <h3>🌱 Impact-Driven</h3>
-                <p>Learn how decisions cascade through systems. See how successful interventions spread to neighboring regions.</p>
-            </div>
-            <div class="about-card">
-                <h3>🔗 UN SDG 2</h3>
-                <p>Aligned with UN Sustainable Development Goal 2: Zero Hunger. Help achieve food security and improved nutrition by 2030.</p>
-            </div>
-        </div>
-
-        <div class="research-section">
-            <h3>Research & References</h3>
-            <ul>
-                <li><strong>Cash Transfers:</strong> Kenya's Hunger Safety Net Programme shows 15% increase in household dietary diversity</li>
-                <li><strong>Drought-Resistant Crops:</strong> Pearl millet yields increase 55% in dry conditions</li>
-                <li><strong>AI Crop Detection:</strong> Nuru app in Kenya increased yields by 30% ($300/year per farmer)</li>
-                <li><strong>School Feeding:</strong> Improves enrollment and nutrition outcomes</li>
-                <li><strong>Irrigation:</strong> Reduces childhood stunting by 20% in Sub-Saharan Africa</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Harvest Hope</h4>
-                <p>A game-based learning tool for understanding global food security.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="docs/GAMEPLAY.md">How to Play</a></li>
-                    <li><a href="docs/INSTALLATION.md">Installation</a></li>
-                    <li><a href="https://github.com/yourusername/harvest-hope">Source Code</a></li>
-                    <li><a href="https://github.com/yourusername/harvest-hope/issues">Report Issue</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Learn More</h4>
-                <ul>
-                    <li><a href="https://www.wfp.org" target="_blank">World Food Programme</a></li>
-                    <li><a href="https://www.fao.org" target="_blank">FAO</a></li>
-                    <li><a href="https://www.ifad.org" target="_blank">IFAD</a></li>
-                    <li><a href="https://sdgs.un.org/goals/goal2" target="_blank">UN SDG 2</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Harvest Hope. Licensed under MIT.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/app.js"></script>
-</body>
-</html>
+const REGIONS = {
+    subSaharanAfrica: { name: 'Sub-Saharan Africa', x: 490, y: 430, initialHunger: 42, population: 1100000000, climate: 'Arid/Tropical', neighbors: ['westAfrica', 'eastAfrica'] },
+    westAfrica:       { name: 'West Africa',        x: 380, y: 380, initialHunger: 35, population: 420000000,  climate: 'Semi-arid',    neighbors: ['subSaharanAfrica', 'northAfrica'] },
+    eastAfrica:       { name: 'East Africa',         x: 600, y: 390, initialHunger: 38, population: 460000000,  climate: 'Arid',         neighbors: ['subSaharanAfrica', 'southAsia'] },
+    southAsia:        { name: 'South Asia',          x: 720, y: 330, initialHunger: 28, population: 1900000000, climate: 'Monsoon',      neighbors: ['eastAfrica', 'southeastAsia'] },
+    southeastAsia:    { name: 'Southeast Asia',      x: 830, y: 370, initialHunger: 18, population: 680000000,  climate: 'Tropical',     neighbors: ['southAsia', 'eastAsia'] },
+    eastAsia:         { name: 'East Asia',           x: 860, y: 270, initialHunger: 8,  population: 1600000000, climate: 'Temperate',    neighbors: ['southeastAsia', 'centralAsia'] },
+    centralAsia:      { name: 'Central Asia',        x: 680, y: 230, initialHunger: 15, population: 75000000,   climate: 'Continental',  neighbors: ['eastAsia', 'northAfrica'] },
+    northAfrica:      { name: 'North Africa',        x: 450, y: 290, initialHunger: 12, population: 240000000,  climate: 'Desert',       neighbors: ['westAfrica', 'centralAsia'] }
+};
