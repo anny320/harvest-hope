@@ -1,0 +1,143 @@
+const GAME_CONFIG = {
+    startingFunding: 2500000000,
+    startingTrust: 50,
+    startingPolitics: 50,
+    startingYear: 2024,
+    targetYear: 2030,
+    winHungerThreshold: 5,
+    partialWinHungerThreshold: 10,
+    monthDuration: 2000,
+
+    interventions: {
+        cashTransfers: {
+            name: 'Cash Transfers',
+            cost: 50000000,
+            trustCost: 0,
+            politicsCost: 5,
+            evidenceCost: 0,
+            hungerReduction: 2,
+            peopleFedPerMonth: 500000,
+            requiredEvidence: 0,
+            description: 'Direct cash to vulnerable families'
+        },
+        droughtSeeds: {
+            name: 'Drought-Resistant Seeds',
+            cost: 30000000,
+            trustCost: 0,
+            politicsCost: 0,
+            evidenceCost: 10,
+            hungerReduction: 3,
+            peopleFedPerMonth: 800000,
+            requiredEvidence: 0,
+            description: 'High-yield seeds for arid conditions'
+        },
+        irrigation: {
+            name: 'Irrigation Systems',
+            cost: 120000000,
+            trustCost: 5,
+            politicsCost: 10,
+            evidenceCost: 20,
+            hungerReduction: 5,
+            peopleFedPerMonth: 1200000,
+            requiredEvidence: 30,
+            description: 'Infrastructure for reliable water supply'
+        },
+        aiCropDetection: {
+            name: 'AI Crop Detection',
+            cost: 80000000,
+            trustCost: 0,
+            politicsCost: 0,
+            evidenceCost: 15,
+            hungerReduction: 4,
+            peopleFedPerMonth: 1000000,
+            requiredEvidence: 50,
+            description: 'Tech-based crop disease prevention'
+        },
+        schoolFeeding: {
+            name: 'School Feeding Programs',
+            cost: 40000000,
+            trustCost: -10,
+            politicsCost: -5,
+            evidenceCost: 0,
+            hungerReduction: 1.5,
+            peopleFedPerMonth: 600000,
+            requiredEvidence: 0,
+            description: 'Nutrition + enrollment outcomes'
+        }
+    }
+};
+
+const REGIONS = {
+    subSaharanAfrica: {
+        name: 'Sub-Saharan Africa',
+        x: 490,
+        y: 430,
+        initialHunger: 42,
+        population: 1100000000,
+        climate: 'Arid/Tropical',
+        neighbors: ['westAfrica', 'eastAfrica']
+    },
+    westAfrica: {
+        name: 'West Africa',
+        x: 380,
+        y: 380,
+        initialHunger: 35,
+        population: 420000000,
+        climate: 'Semi-arid',
+        neighbors: ['subSaharanAfrica', 'northAfrica']
+    },
+    eastAfrica: {
+        name: 'East Africa',
+        x: 600,
+        y: 390,
+        initialHunger: 38,
+        population: 460000000,
+        climate: 'Arid',
+        neighbors: ['subSaharanAfrica', 'southAsia']
+    },
+    southAsia: {
+        name: 'South Asia',
+        x: 720,
+        y: 330,
+        initialHunger: 28,
+        population: 1900000000,
+        climate: 'Monsoon',
+        neighbors: ['eastAfrica', 'southeastAsia']
+    },
+    southeastAsia: {
+        name: 'Southeast Asia',
+        x: 830,
+        y: 370,
+        initialHunger: 18,
+        population: 680000000,
+        climate: 'Tropical',
+        neighbors: ['southAsia', 'eastAsia']
+    },
+    eastAsia: {
+        name: 'East Asia',
+        x: 860,
+        y: 270,
+        initialHunger: 8,
+        population: 1600000000,
+        climate: 'Temperate',
+        neighbors: ['southeastAsia', 'centralAsia']
+    },
+    centralAsia: {
+        name: 'Central Asia',
+        x: 680,
+        y: 230,
+        initialHunger: 15,
+        population: 75000000,
+        climate: 'Continental',
+        neighbors: ['eastAsia', 'northAfrica']
+    },
+    northAfrica: {
+        name: 'North Africa',
+        x: 450,
+        y: 290,
+        initialHunger: 12,
+        population: 240000000,
+        climate: 'Desert',
+        neighbors: ['westAfrica', 'centralAsia']
+    }
+};
